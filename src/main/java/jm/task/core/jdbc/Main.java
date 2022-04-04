@@ -1,22 +1,16 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import jm.task.core.jdbc.util.Util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        UserServiceImpl sao = new UserServiceImpl();
+        UserService sao = new UserServiceImpl();
         sao.createUsersTable();
 
         List<User> userList = new ArrayList<>(Arrays.asList(

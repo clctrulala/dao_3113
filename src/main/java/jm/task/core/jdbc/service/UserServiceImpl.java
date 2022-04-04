@@ -1,15 +1,12 @@
 package jm.task.core.jdbc.service;
 
-import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
+import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.model.User;
-
 import java.util.List;
 
-// service переиспользует методы dao
-
 public class UserServiceImpl implements UserService {
-    private final UserDaoJDBCImpl userDAO = new UserDaoJDBCImpl();
+    private final UserDao userDAO = new UserDaoJDBCImpl();
 
     public void createUsersTable() {
         userDAO.createUsersTable();
