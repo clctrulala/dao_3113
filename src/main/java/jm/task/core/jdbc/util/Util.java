@@ -3,31 +3,30 @@ package jm.task.core.jdbc.util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Util {
+    private static final Logger LOGGER = Logger.getLogger( Util.class.getName() );
     private final String dbHost = "localhost:3306";
     private final String dbOwner = "root";
     private final String dbPassword = "biblio888tekar";
     private final String dbName = "pre_project_test_schema";
+    private final String dbURL = "jdbc:mysql://" + dbHost + "/" + dbName;
     private Connection dbConnect;
 
     public Util() {
-        dbConnect = connect();
+        dbConnect = getDBConnect();
     }
 
-    private Connection connect() {
-        final String dbURL = "jdbc:mysql://" + dbHost + "/" + dbName;
-
+    public Connection getDBConnect() {
         try {
-            dbConnect = DriverManager.getConnection(dbURL, dbOwner, dbPassword);
+            if (null == dbConnect || dbConnect.isClosed()) {
+                dbConnect = DriverManager.getConnection(dbURL, dbOwner, dbPassword);
+            }
         } catch (SQLException sqlErr) {
+            LOGGER.log(Level.SEVERE, "Database connection error.", sqlErr);
         }
         return dbConnect;
     }
-
-    public Connection getDBConnect() throws SQLException {
-        if (null == dbConnect || dbConnect.isClosed()) { dbConnect = connect(); }
-        return dbConnect;
-    }
-
 }
